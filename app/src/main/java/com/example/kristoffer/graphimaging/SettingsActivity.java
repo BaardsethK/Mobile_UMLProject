@@ -7,17 +7,16 @@ import android.support.v7.widget.Toolbar;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Toolbar settingsToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        settingsToolbar = findViewById(R.id.settings_toolbar);
+        Toolbar settingsToolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(settingsToolbar);
         ActionBar mActionBar = getSupportActionBar();
         if (getSupportActionBar() != null) {
+            assert mActionBar != null;
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
     }

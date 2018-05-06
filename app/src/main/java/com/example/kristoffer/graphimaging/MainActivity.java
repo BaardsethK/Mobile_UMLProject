@@ -46,13 +46,6 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1111;
 
 
-    private Toolbar toolbar;
-
-    private ImageButton mTakeImageButton;
-    private Button mScaleImageButton;
-    private Button mSaveImageButton;
-    private Button mDecolorImageButton;
-
     private TextView mImageDataText;
     private EditText mXScaleValue;
     private EditText mYScaleValue;
@@ -62,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     private String mCurrentPhotoPath;
     private File imgFile = null;
     private Bitmap imgBitmap;
-    private final float darkColorThreshold = 0.5f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +62,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mTakeImageButton = findViewById(R.id.photoButton);
-        mScaleImageButton = findViewById(R.id.imageCompressButton);
-        mDecolorImageButton = findViewById(R.id.removeColorButton);
-        mSaveImageButton = findViewById(R.id.saveImageButton);
+        ImageButton mTakeImageButton = findViewById(R.id.photoButton);
+        Button mScaleImageButton = findViewById(R.id.imageCompressButton);
+        Button mDecolorImageButton = findViewById(R.id.removeColorButton);
+        Button mSaveImageButton = findViewById(R.id.saveImageButton);
 
         mImageDataText = findViewById(R.id.imgDataText);
         mXScaleValue = findViewById(R.id.xScaleEditText);
@@ -86,17 +78,18 @@ public class MainActivity extends AppCompatActivity {
 
 
         mTakeImageButton.setOnClickListener(new View.OnClickListener() {
+            final String TAG = "IMGTAKE";
             @Override
             public void onClick(View view) {
                 if (imgFile != null) {
                     if (!imgFile.delete()) {
-                        Log.e("IMGDEL", "Deleting existing image file failed.");
+                        Log.e(TAG, "Deleting existing image file failed.");
                     }
                 }
                 try {
                     imgFile = createImageFile();
                 } catch (IOException e) {
-                    Log.e("IMG", "Error creating image file.");
+                    Log.e(TAG, "Error creating image file.");
                 }
                 if (imgFile != null) {
                     Uri imgUri = FileProvider.getUriForFile(MainActivity.this,
@@ -146,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      *  Define/create action bar/menu
      *
-     * @param menu
-     * @return
+     * @param menu MenuBar item to create
+     * @return Return super
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -158,8 +151,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Action Bar options switch.
      *
-     * @param item
-     * @return
+     * @param item MenuBar item
+     * @return Return status of item selected
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -181,9 +174,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Result from image-function.
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode Request code for permission, defined in MainActivity
+     * @param resultCode Result of permission request
+     * @param data The data of the Activity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -196,18 +189,19 @@ public class MainActivity extends AppCompatActivity {
     /**
      *  Result from requesting permission to write image to external storage.
      *
-     * @param requestCode
-     * @param permissions
-     * @param grantResults
+     * @param requestCode Request code for saving to external, defined in MainActivity
+     * @param permissions Permissions requested
+     * @param grantResults Code for status of permissions
      */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        String TAG = "PERM";
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     saveImageToGallery();
                 } else {
-                    Log.i("PERM", "Request for permission failed.");
+                    Log.i(TAG, "Request for permission failed.");
                 }
             }
         }
@@ -216,8 +210,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Scale the bitmap to given height/width, preserving aspect ratio.
      *
-     * @param maxWidth
-     * @param maxHeight
+     * @param maxWidth Max possible width of image
+     * @param maxHeight Max possible height of image
      */
     private void scaleBitmap(int maxWidth, int maxHeight) {
         int width = imgBitmap.getWidth();
@@ -259,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < imgBitmap.getWidth(); i++) {
             for(int j = 0; j < imgBitmap.getHeight(); j++) {
                 Color.colorToHSV(imgBitmap.getPixel(i,j), hsv);
+                float darkColorThreshold = 0.5f;
                 if (hsv[2] > darkColorThreshold) {
                     bwBitmap.setPixel(i,j,0xffffffff);
                 } else{
@@ -273,8 +268,8 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Create a file after taking image with camera.
      *
-     * @return
-     * @throws IOException
+     * @return Returns image file/path
+     * @throws IOException If image failed to save.
      */
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyMMdd_HHmmss", java.util.Locale.getDefault()).format(new Date());
@@ -318,22 +313,23 @@ public class MainActivity extends AppCompatActivity {
      * Calls unit media library to alert that file has been added.
      */
     private void saveImageToGallery() {
+        String TAG = "SAVEIMG";
         String root = Environment.getExternalStorageDirectory().toString() + "/SketchPhotos";
         File dir = new File(root);
         String fileName = imgFile.getName();
         final File finalFile = new File(dir, fileName);
         if (finalFile.exists()) {
             if (!finalFile.delete()) {
-                Log.e("SAVEIMG", "End bitimage failed to delete.");
+                Log.e(TAG, "End bit-image failed to delete.");
             }
         }
         if (!dir.exists()) {
             if (!dir.mkdirs()) {
-                Log.e("SAVEIMG" ,"Creating image directory failed");
+                Log.e(TAG ,"Creating image directory failed");
             }
         }
 
-        Log.i("SAVEIMG", root + fileName);
+        Log.i(TAG, root + fileName);
         try {
             FileOutputStream out = new FileOutputStream(finalFile);
             imgBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
@@ -350,7 +346,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Save image and path to bundle, if user changes activity.
-     * @param bundle
+     * @param bundle data from intent with image.
      */
     protected void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
@@ -383,8 +379,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-
-        Log.i("WRITEMAP", map.toString());
 
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < imgBitmap.getHeight(); i++) {
