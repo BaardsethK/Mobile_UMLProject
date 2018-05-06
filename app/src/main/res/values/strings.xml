@@ -1,3 +1,26 @@
 <resources>
     <string name="app_name">GraphImaging</string>
+    <string name="action_settings">settings</string>
+    <string name="action_info">info</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+
+    <!-- Example settings for Data & Sync -->
+
+    <!-- Example settings for Notifications -->
+
+    <string name="imageButtonContent">Camera Button Icon</string>
+    <string name="bitmapImageContent">Image bitmap</string>
+    <string name="xValTextHint">Preferred X-value of the scaling</string>
+    <string name="yValTextHint">Preferred Y-value of the scaling</string>
+    <string name="scale_text">Scale</string>
+    <string name="remove_color">Remove Color</string>
+    <string name="save_image">Save image</string>
+    <string name="standard_xvalue">800</string>
+    <string name="standard_yvalue">800</string>
+    <string name="image_values">%1$d x %2$d, %3$d KB</string>
+    <string name="x">x</string>
 </resources>
