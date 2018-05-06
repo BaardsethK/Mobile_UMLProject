@@ -40,57 +40,5 @@ Otherwise 18 spell check errors, mostly debug tag or naming convention.
   * Loading icon when downscaling/removing color
   * Save file notation with file location ("Image saved to your/file/folder/and/file.img")
 
-# Report
-
-## Team
-Kristoffer Baardseth
-
-## Development
-Development was done by single contributor.
-Developed in "relaxed" Incremental Cycle.
-Functionality listing:
-Take photo
-Display photo to bitmap
-Scale photo
-Remove color from photo
-Save photo
-Display Photo in gallery
-Github Integration
-
-Extra:
-Bitmap .txt map
-
-Problems:
-Got properly started too late, might've understood how to integrate Git functionality if I had started earlier.
-
-## Testing
-Testing was done by "trial and error", no defined unit tests.
-Functions were tested one by one when implemented:
-- Photo/Show bitmap
-- Scale photo
-- Remove color
-- Save to location.
-Extra:
-- Bitmap .txt map
-Application was made using "relaxed" incremental development style. Testing was as follows:
-Start development of function -> Partial function usable -> Test -> 
-->(opt) fix errors -> Function usable -> Test -> (opt) fix errors -> Integrated.
-
-## Missing
-The project is missing the GitHub integration, because of a failure to learn how to integrate it.
-This is mostly because I struggle to understand the use of OAuth in Android Studio, and how to properly integrate it.
-The documentation does not fit my learning style at all, and this is something I need to work on.
-
-## Experiences
-The easy part:
-Taking images, doing some manipulations and saving. While I struggled to fully understand it at first,
-once I got started it felt easy to make small changes and edits fast. This was what I was most interested in learning,
-and I am very satisfied with how it turned out.
-The hard part:
-Integrating the GitHub API to connect with a user and push to a repository proved a challenge. 
-I struggled to understand the documentation, and I did not find exmaples or tutorials that worked for me.
-What I learned:
-Image manipulation, saving file to storage, updating gallery, taking photos and using them inside an application.
-Android Studio/code examples feels lacking and "all over the place". Usually finding a solution to a problem means finding many 
-solutions and extrapolating a solution that fits your version.
-
+## Report
+Report is in project as IMT3673 Project Report.pdf
