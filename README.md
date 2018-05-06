@@ -27,18 +27,18 @@ Linter has suppressed warning about Gradle build version. Adds error if updated.
 Otherwise 18 spell check errors, mostly debug tag or naming convention.
 
 ## TODO
-Fix Gradle Update failures
-Lock image functions when no bitmap is recorded.
-Add full commit - push integration with GitHub API .
-Add variation to "remove color" method:
-- Remove by distance from least/most saturated.
-- Remove by difference in color value.
-Add image cropping utility
-Add "reduce color" method.
-- Reduce from full specter to black/white/red/green/blue.
-Add feedback to utility buttons
-- Loading icon when downscaling/removing color
-- Save file notation with file location ("Image saved to your/file/folder/and/file.img")
+* Fix Gradle Update failures
+* Lock image functions when no bitmap is recorded.
+* Add full commit - push integration with GitHub API .
+* Add variation to "remove color" method:
+ * Remove by distance from least/most saturated.
+ * Remove by difference in color value.
+* Add image cropping utility
+* Add "reduce color" method.
+ * Reduce from full specter to black/white/red/green/blue.
+* Add feedback to utility buttons
+ * Loading icon when downscaling/removing color
+ * Save file notation with file location ("Image saved to your/file/folder/and/file.img")
 
 # Report
 
