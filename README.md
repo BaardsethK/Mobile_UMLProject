@@ -42,7 +42,7 @@ Add feedback to utility buttons
 
 # Report
 
-##Team
+## Team
 Kristoffer Baardseth
 
 ## Development
